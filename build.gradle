@@ -1,4 +1,14 @@
 buildscript {
+    ext {
+        libVersionName = "1.0.0"
+        libVersionCode = 1
+
+        libBuildToolsVersion = "25.0.0"
+        libCompileSdk = 25
+        libTargetSdk = 25
+        libMinSdk = 16
+
+    }
     repositories {
         jcenter()
     }
