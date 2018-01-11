@@ -10,6 +10,11 @@ android {
         versionCode libVersionCode
         versionName libVersionName
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    
     buildTypes {
         release {
             minifyEnabled false
@@ -19,8 +24,8 @@ android {
 }
 
 dependencies {
-    compile project(':sqlite-adapter')
-    compile 'net.zetetic:android-database-sqlcipher:3.5.9@aar'
+    implementation project(':sqlite-adapter')
+    implementation 'net.zetetic:android-database-sqlcipher:3.5.9@aar'
 }
 
 repositories {
