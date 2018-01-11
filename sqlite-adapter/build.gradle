@@ -9,7 +9,6 @@ android {
         targetSdkVersion libTargetSdk
         versionCode libVersionCode
         versionName libVersionName
-
     }
     buildTypes {
         release {

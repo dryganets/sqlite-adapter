@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        group = "com.github.dryganets"
+        packageGroup = "com.github.dryganets"
         libVersionName = "0.0.1"
         libVersionCode = 1
 
@@ -17,11 +17,66 @@ buildscript {
 
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.11.0"
     }
 }
 
-repositories {
-    mavenCentral()
-    jcenter()
-}
+apply plugin: 'io.codearte.nexus-staging'
 
+if (project.hasProperty('release')) {
+    allprojects {
+        apply plugin: 'signing'
+        apply plugin: 'maven'
+
+        // Signature of artifacts
+        signing {
+            sign configurations.archives
+        }
+
+        nexusStaging {
+            packageGroup = packageGroup
+        }
+
+        // OSSRH publication
+        uploadArchives {
+            repositories {
+                mavenDeployer {
+                    // POM signature
+                    beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+                    // Target repository
+                    repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                        authentication(userName: ossrhUsername, password: ossrhPassword)
+                    }
+                    pom.project {
+                        name project.name
+                        description project.description
+                        packaging 'aar'
+                        url 'https://github.com/dryganets/sqlite-adapter'
+
+                        scm {
+                            connection 'scm:git:https://github.com/dryganets/sqlite-adapter.git'
+                            developerConnection 'scm:git:git@https://github.com/dryganets/sqlite-adapter.git'
+                            url 'https://github.com/dryganets/sqlite-adapter.git'
+                        }
+
+                        licenses {
+                            license {
+                                name 'The MIT License (MIT)'
+                                url 'http://opensource.org/licenses/MIT'
+                                distribution 'repo'
+                            }
+                        }
+
+                        developers {
+                            developer {
+                                id = 'dryganets'
+                                name = 'Sergei Dryganets'
+                                email = 'sergey.dryganets@gmail.com'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
