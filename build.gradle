@@ -7,6 +7,7 @@ buildscript {
         libCompileSdk = 25
         libTargetSdk = 25
         libMinSdk = 16
+        packageId = 'com.github.dryganets'
 
     }
     repositories {
@@ -33,7 +34,7 @@ if (project.hasProperty('release')) {
         }
 
         nexusStaging {
-            packageGroup = "com.github.dryganets"
+            packageGroup = packageId
         }
 
         // OSSRH publication
@@ -48,6 +49,8 @@ if (project.hasProperty('release')) {
                     }
                     pom.project {
                         name project.name
+                        groupId packageId
+                        version libVersionName
                         description project.description
                         packaging 'aar'
                         url 'https://github.com/dryganets/sqlite-adapter'
