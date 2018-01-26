@@ -4,8 +4,12 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 import android.support.test.runner.AndroidJUnit4;
+import android.test.AndroidTestCase;
 
 import com.github.dryganets.sqlite.adapter.DefaultConnectionProvider;
+
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -24,16 +28,11 @@ import static org.junit.Assert.*;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-@RunWith(AndroidJUnit4.class)
-public class BaseSqliteTest {
+public class SqliteTest extends AndroidTestCase {
 
 	private static List<ProviderTestWrapper> providers = new ArrayList<>();
 	static {
 		providers.add(new ProviderTestWrapper(new DefaultConnectionProvider(), "default"));
-	}
-
-	public BaseSqliteTest() {
-
 	}
 
 	@BeforeClass
