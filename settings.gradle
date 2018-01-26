@@ -1,2 +1,2 @@
-include ':sqlite-adapter'
+include ':sqlite-adapter', ':sqlite-adapter-integration-test'
 include ':sqlite-adapter-cipher'
